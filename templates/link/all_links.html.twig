@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Мои ссылки{% endblock %}
+
+{% block content %}
+    <h2>Мои сокращенные ссылки</h2>
+    <ul class="link-list">
+        {% for link in links %}
+            <li>
+                <a href="{{ path('redirect', {'shortUrl': link.shortUrl}) }}">{{ link.shortUrl }}</a> — {{ link.originalUrl }} — Количество переходов: {{ link.clickCount }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

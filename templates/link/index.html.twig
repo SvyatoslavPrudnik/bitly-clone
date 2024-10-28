@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Сократитель ссылок</h1>
+    <form action="{{ path('shorten') }}" method="post">
+        <label for="url">Введите URL для сокращения:</label>
+        <input type="url" name="url" id="url" required>
+        <button type="submit">Сократить</button>
+    </form>
+{% endblock %}

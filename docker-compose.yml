@@ -1,0 +1,37 @@
+services:
+  app:
+    build: .
+    container_name: symfony_app
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "mysql://user:password@db:3306/bitly_db"
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - .:/var/www/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "8000:80"
+    depends_on:
+      - app
+
+  db:
+    image: mysql:8.0
+    container_name: bitly_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bitly_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
